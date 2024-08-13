@@ -3,10 +3,16 @@
 //     console.log("Harkirat");
 // }
 // setTimeout(logName, 3000);
-function random()
-{
 
+function helper(resolve)
+{
+    setTimeout(resolve, 5000);
+}
+function SetTimeOutPromise()
+{
+    return new Promise(helper);
 }
 
-let p = new Promise(random);// suppose to return something eventually.
+let p = SetTimeOutPromise();
 console.log(p);
+p.then(() => console.log("Promise is resolver now"));
