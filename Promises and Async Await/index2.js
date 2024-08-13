@@ -16,3 +16,15 @@ function SetTimeOutPromise()
 let p = SetTimeOutPromise();
 console.log(p);
 p.then(() => console.log("Promise is resolver now"));
+
+
+// Second Example
+const myPromise = new Promise((resolve) => {
+    setTimeout(() => {
+        resolve("foo");
+    }, 2000);
+})
+console.log(myPromise);
+myPromise.then((val) => {
+    console.log(val);
+})
