@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.6/axios.min.js"></script>
+</head>
+
+<body>
+    <div id="posts"></div>
+    <script>
+        async function fetchPosts() {
+            const res = await axios.get("https://jsonplaceholder.typicode.com/posts/1");
+            document.getElementById("posts").innerHTML = res.data.title;
+        }
+
+        fetchPosts();
+    </script>
+</body>
+
+</html>
