@@ -1,0 +1,38 @@
+JavaScript Promise  V/S  Callback
+
+They both are simmilar to callback 
+in a sense that they both can be used
+to handle asynchronous tasks.
+
+
+In Javascript Promise is a good way to handle 
+asynchronous task .It is used to find out
+if the asynchronous operation is successfully completed or not
+
+
+A promise may have one of three states
+1. Pending
+2. Fulfilled
+3. Rejected
+
+
+A promise start in Pending state this mean
+the process is not complete.
+If the operation is successfull, the process 
+end in a Fulfilled state. 
+And if error occurs the process end in a rejected state
+
+For example when you request data from the server by
+using promise, it will be in a pending state.
+When the data arrives successfully, it will
+be in a Fulfilled state.
+If error happens it will be in a rejected state
+Create a Promise
+To create a promise object, we use the Promise() constructor.
+
+let promise = new Promise(function(resolve, reject){
+     //do something
+});
+The Promise() constructor takes a function as an argument. The function also accepts two functions resolve() and reject().
+
+If the promise returns successfully, the resolve() function is called. And, if an error occurs, the reject() function is called.
