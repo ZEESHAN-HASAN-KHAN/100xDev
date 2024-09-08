@@ -1,4 +1,5 @@
 const express = require('express');
+const jwt= require('jsonwebtoken');
 const app = express();
 const PORT = 3001;
 
@@ -44,7 +45,9 @@ app.post("/signin", function (req, res) {
     })
     if (user)
     {
-        const token = generateToken();
+        const token = jwt.sign({ username: username }, 'secret');
+        
+        // const token = generateToken();
         user.token = token;
         console.log(user);
         res.json({
@@ -61,27 +64,49 @@ app.post("/signin", function (req, res) {
 
 app.get("/me", (req, res) => {
     const token = req.headers.token;
-
-    let foundUser = null;
-    users.find((u) => {
-        if (u.token == token)
-        {
-            foundUser = u;
-        }
-    })
-    if (foundUser)
+    if (token)
     {
-        res.json({
-            username: foundUser.username,
-            password:foundUser.password
+        jwt.verify(token, 'secret', (err, decode) => {
+            if (err)
+            {
+               return  res.status(401).send({
+                    message:'Unauthorized'
+                })
+            }
+            else
+            {
+                req.user = decode;
+            }
         })
     }
     else
     {
-        res.status(500).json({
-            mesasge:'Danger'
-        })
-        }
+        return res.status(401).send({
+           message:"Unauthorised"
+       })
+    }
+    res.send({ username: req.user });
+    
+    // let foundUser = null;
+    // users.find((u) => {
+    //     if (u.token == token)
+    //     {
+    //         foundUser = u;
+    //     }
+    // })
+    // if (foundUser)
+    // {
+    //     res.json({
+    //         username: foundUser.username,
+    //         password:foundUser.password
+    //     })
+    // }
+    // else
+    // {
+    //     res.status(500).json({
+    //         mesasge:'Danger'
+    //     })
+    //     }
 })
 
 
