@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body id="bd">
+    <input id="e"></input>
+    <button onclick="myfunction()">Submit</button>
+
+</body>
+<script>
+    function myfunction() {
+        var x = document.getElementById("e").value;
+        var z = document.createElement('div');
+        z.innerHTML = x;
+        document.getElementById("bd").appendChild(z);
+
+    }
+</script>
+
+</html>
