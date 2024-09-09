@@ -9,10 +9,10 @@ const users = [];
 //MiddleWare to parse the body 
 app.use(express.json());
 
-function generateToken()
-{
-    return Math.random();
-}
+// function generateToken()
+// {
+//     return Math.random();
+// }
 
 app.post("/signup", function (req, res)
 {
