@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div id="buttonParent">
+    </div>
+    <script>
+        let state = {
+            count: 0
+        }
+
+        // React Logic
+        function buttonComponentReRender() {
+            document.getElementById("buttonParent").innerHTML = "";
+            const component = buttonComponent(state.count);
+            document.getElementById("buttonParent").appendChild(component);
+        }
+        // This we have to write in React
+        function buttonComponent(count) {
+            const button = document.createElement("button");
+            button.innerHTML = `Counter ${count}`;
+            button.setAttribute("onclick", `onButtonPress()`);
+            return button;
+        }
+        // React Logic
+        buttonComponentReRender();
+
+    </script>
+</body>
+
+</html>
