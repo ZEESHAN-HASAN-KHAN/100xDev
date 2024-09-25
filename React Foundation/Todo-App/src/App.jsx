@@ -61,7 +61,7 @@
 
 // export default App
 
-//Example 1
+//Example 1 Memo let you skip re-rendering 
 // import { useState } from 'react'
 // import React from 'react'
 
@@ -140,39 +140,105 @@
 
 // export default App
 
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
+// import React from 'react'
+
+// function Todo(props) {
+//   return <>
+//     <h1>{props.title}</h1>
+//     <h1>{props.description}</h1>
+//   </>
+// }
+// let counter = 1;
+// function App() {
+//   const [todos, setTodos] = useState([{
+//     id: counter,
+//     title: 'Z',
+//     description: 'H'
+//   }]);
+
+//   function addTodo() {
+//     setTodos([...todos, { id: ++counter, title: Math.random(), description: Math.random() }])
+//   }
+
+//   useEffect(() => {
+//     console.log('This line come from Use Effect Hook which run on first re-render')
+//   }, [])
+//   //[]:- It is a dependency list which means any state define here will make useEffect run 
+//   return (
+//     <div>
+//       <button onClick={addTodo}>Add Todo</button>
+//       {todos.map((todo) => {
+//         return <Todo key={todo.id} title={todo.title} description={todo.description} />
+//       })}
+//     </div>
+//   )
+
+
+// }
+// export default App;
+
+
+
+//Example UseMemo Hooks
+// import { useMemo, useState } from 'react'
+// import React from 'react'
+// function App() {
+//   const [value, setValue] = useState(0);
+//   const [counter, setCounter] = useState(0);
+//   //useMemo will be called only when the state value change
+//   let count = useMemo(() => {
+//     console.log('Memo Got Called')
+//     let count = 0;
+//     for (let i = 0; i < value; i++) {
+//       count += i;
+//     }
+//     return count;
+//   }, [value])
+//   return (
+//     <div>
+//       <input type='text' placeholder='Enter a Value' onChange={(e) => {
+
+//         setValue(e.target.value)
+//       }}></input>
+//       <h1>Sum is {value}</h1>
+//       <button onClick={() => { setCounter(counter + 1) }}>Click to Increase the counter {counter}</button>
+//     </div>
+//   )
+
+
+// }
+// export default App;
+
+
+//Example of Callback
+//Even though we are passing same function 
+//everytime Render they are refrentially not equal
+//so that's why Comp will render every time
+//React.memo skip the re-rendering when the props/attribute don't change
+//But here the function is changing referentially 
+// and hence useCallback came into picture
+
+import { useCallback, useMemo, useState } from 'react'
 import React from 'react'
 
-function Todo(props) {
-  return <>
-    <h1>{props.title}</h1>
-    <h1>{props.description}</h1>
-  </>
-}
-let counter = 1;
+const Comp = React.memo(function Comp({ fn }) {
+  console.log('First Time Render')
+  return <h1>Hi there from comp </h1>
+})
 function App() {
-  const [todos, setTodos] = useState([{
-    id: counter,
-    title: 'Z',
-    description: 'H'
-  }]);
+  const [counter, setCounter] = useState(0);
+  const fn = useCallback(() => {
 
-  function addTodo() {
-    setTodos([...todos, { id: ++counter, title: Math.random(), description: Math.random() }])
+    console.log('Function is called');
   }
-
-  useEffect(() => {
-    console.log('First Time Render It will show');
-  }, [])
+    , [])
+  var a = 1;
   return (
     <div>
-      <button onClick={addTodo}>Add Todo</button>
-      {todos.map((todo) => {
-        return <Todo key={todo.id} title={todo.title} description={todo.description} />
-      })}
+      <Comp fn={fn} ></Comp>
+      <button onClick={() => { setCounter(counter + 1) }}>Click to Increase the counter {counter}</button>
     </div>
   )
-
-
 }
 export default App;

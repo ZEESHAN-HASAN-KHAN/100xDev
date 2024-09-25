@@ -1,0 +1,7 @@
+UseEffect is a Hook/function
+having two argument 
+1. callback function
+2.dependeny list
+
+Side-Effect:- Get document from anywhere
+

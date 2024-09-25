@@ -1,0 +1,31 @@
+Reconciliation:-When developer give state to Rect 
+React write DOM code instead of you
+
+Reconciliation is a process of getting the new state from developer
+and checking with existing state is there any difference 
+putting things in DOM
+
+
+Can you do you taxes yourself
+Can you do DOM maninpulation yourself?
+
+Answer is Yes
+
+you give react state and then re-render happen
+Any time you change the state in application 
+React re-render 
+Ex:- Basic Code in React
+import {useState} from 'react'
+
+function App()
+{   
+    const [count,setCount]=useState(0);
+    return
+    <>
+    <button onClick={()=>{setCount(count+1)}}>{count}</button
+    </>
+}
+Reconciliation is React's way of diffing 
+the virtual DOM tree with the updated 
+virtual DOM to determine the most efficient
+way to update the real DOM
