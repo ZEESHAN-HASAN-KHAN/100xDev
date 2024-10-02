@@ -18,6 +18,7 @@ courseRouter.post('/purchases',userMiddleware,async(req, res)=> {
         message:"You have successfully bought the course"
     })
 })
+//This Endpoint doesn't even need to be authenticated
 courseRouter.get('/preview',async(req, res)=> {
     const course = await courseModel.find({});
     res.json({

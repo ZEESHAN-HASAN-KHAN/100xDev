@@ -176,8 +176,8 @@ adminRouter.get('/course/bulk', adminMiddleware,async function (req, res)
         })
 
         return res.status(200).json({
-            message:"Course Updated",
-            courses
+            message:"All Courses",
+            courses:courses
         })
     } catch (e)
     {

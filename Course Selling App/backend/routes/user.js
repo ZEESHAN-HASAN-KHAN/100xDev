@@ -113,7 +113,7 @@ userRouter.get('/purchases',userMiddleware, async(req, res) => {
 
     for (let i = 0; i < purchases.length; i++)
     {
-        purchasesCourseIds.push(purchases[i]);
+        purchasesCourseIds.push(purchases[i].courseId);
     }
     
     const courseData = await courseModel.find({
