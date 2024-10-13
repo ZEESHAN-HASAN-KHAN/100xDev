@@ -1,7 +1,6 @@
-
+const {MONGO_URI}=require('./config')
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
-const {MONGO_URI}=require('./config')
 async function dbconnect()
 {
     try {
@@ -16,11 +15,16 @@ async function dbconnect()
     }
 }
 dbconnect();
+
 const userSchema = new mongoose.Schema({
     firstName: String,
     lastName:String,
     email: {type:String,unique:true},
-    password:String
+    password: String,
+    balance: {
+        type: Number,
+        require:true
+    }
 })
 
 const adminSchema = new mongoose.Schema({
@@ -35,12 +39,21 @@ const courseSchema = new mongoose.Schema({
     description: String,
     price: Number,
     imageUrl: String,
-    creatorId:ObjectId
+    creatorId: {
+        type: ObjectId,
+        ref:"admin"
+    }
 })
 
 const purchaseSchema = new mongoose.Schema({
-    userId: ObjectId,
-    courseId:ObjectId    
+    userId: {
+        type: ObjectId,
+        ref:"user"
+    },
+    courseId: {
+        type: ObjectId,
+        ref:"course"
+    }
 });
 
 const userModel = mongoose.model('users', userSchema);

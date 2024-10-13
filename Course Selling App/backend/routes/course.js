@@ -1,5 +1,5 @@
 const express = require('express');
-const { courseModel, purchaseModel } = require('../db');
+const { courseModel, purchaseModel, userModel } = require('../db');
 const { userMiddleware } = require("../middleware/user");
 
 
@@ -10,6 +10,28 @@ courseRouter.post('/purchases',userMiddleware,async(req, res)=> {
     const courseId = req.body.courseId;
 
     //should check that the user has actually paid the price
+    const ifPurchased = await purchaseModel.findOne({
+        userId,courseId
+    })
+    if (ifPurchased)
+    {
+        return res.status(403).json({
+            error: "You have already purchased the course"
+        })
+    }
+
+    const user = await userModel.findById(userId);
+    const course = await courseModel.findById(courseId);
+
+    if (user.balance < course.price)
+    {
+        return res.status(403).json({
+            error:"Insufficent Balance"
+        })
+    }
+    user.balance -= course.price;
+    user.save();
+
     await purchaseModel.create({
         userId,
         courseId
@@ -19,10 +41,10 @@ courseRouter.post('/purchases',userMiddleware,async(req, res)=> {
     })
 })
 //This Endpoint doesn't even need to be authenticated
-courseRouter.get('/preview',async(req, res)=> {
-    const course = await courseModel.find({});
+courseRouter.get('/all/preview',async(req, res)=> {
+    const courses = await courseModel.find({});
     res.json({
-        course
+        courses
     })
 })
 module.exports = courseRouter;

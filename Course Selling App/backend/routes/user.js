@@ -17,7 +17,7 @@ userRouter.post('/signup', async(req, res) => {
    
     if (!success)
     {
-        return res.status(401).json({
+        return res.status(400).json({
             message:'Invalid Inputs/Format is wrong'
         })
     }
@@ -83,7 +83,7 @@ userRouter.post('/signin', async(req, res) => {
             message:"Invalid Credentials"
         })
     }
-    const compare = bcrypt.compare(req.body.password, user.password);
+    const compare = await bcrypt.compare(req.body.password, user.password);
     
     if (!compare)
     {

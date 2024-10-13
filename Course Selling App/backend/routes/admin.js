@@ -15,10 +15,10 @@ adminRouter.post('/signup', async function (req, res) {
     const password = req.body.password;
   
     const signupBody = zod.object({
-        firstName: zod.string(),
-        lastName: zod.string(),
+        firstName: zod.string().max(50),
+        lastName: zod.string().max(50),
         email: zod.string().email(),
-        password: zod.string()
+        password: zod.string().min(3).max(10)
     })
 
     const { success } = signupBody.safeParse(req.body);
@@ -70,7 +70,7 @@ adminRouter.post('/signin', async function(req, res)  {
 
     const signinBody = zod.object({
         email: zod.string().email(),
-        password:zod.string()
+        password:zod.string().min(3).max(50)
     })
 
     const { success } = signinBody.safeParse(req.body);
@@ -93,7 +93,7 @@ adminRouter.post('/signin', async function(req, res)  {
         })
     }
 
-    const isPassword = bcrypt.compare(password, admin.password);
+    const isPassword = await bcrypt.compare(password, admin.password);
 
     if (!isPassword)
     {
@@ -104,8 +104,11 @@ adminRouter.post('/signin', async function(req, res)  {
 
     const adminId = admin._id;
     const token = jwt.sign({ adminId }, JWT_ADMIN_PASSWORD);
-    const decoded = jwt.verify(token, JWT_ADMIN_PASSWORD);
-    console.log('Decoded value is' + JSON.stringify(decoded));
+
+    //sending the cookies
+    res.cookie("admin_token", token, {
+        httpOnly: true
+    });
 
     return res.status(200).json({
         message: "Authenticated Successfully",
@@ -187,4 +190,6 @@ adminRouter.get('/course/bulk', adminMiddleware,async function (req, res)
         })
     }
 })
+
+
 module.exports=adminRouter
