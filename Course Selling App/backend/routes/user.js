@@ -59,7 +59,8 @@ userRouter.post('/signup', async(req, res) => {
    
 })
 
-userRouter.post('/signin', async(req, res) => {
+userRouter.post('/signin', async (req, res) => {
+    console.log('Hitting')
     const signinBody = zod.object({
         email: zod.string().email(),
         password:zod.string()
@@ -93,11 +94,16 @@ userRouter.post('/signin', async(req, res) => {
     }
     const userId = user._id;
     const token = jwt.sign({ userId }, JWT_USER_PASSWORD);
+    console.log(token);
     const decoded = jwt.verify(token, JWT_USER_PASSWORD);
-    console.log('Decoded Value is '+ JSON.stringify(decoded));
+    console.log('Decoded Value is ' + JSON.stringify(decoded));
+    res.cookie('token', token, {
+        httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
+        // secure: process.env.NODE_ENV === 'production', // Ensures cookies are only sent over HTTPS in production
+        maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
+    });
     res.json({
         message: "User Created Succesfully",
-        token:token
     })
 
 })

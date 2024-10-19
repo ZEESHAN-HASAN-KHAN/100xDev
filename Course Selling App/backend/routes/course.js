@@ -1,6 +1,8 @@
 const express = require('express');
 const { courseModel, purchaseModel, userModel } = require('../db');
 const { userMiddleware } = require("../middleware/user");
+const { adminMiddleware } = require('../middleware/admin');
+const { use } = require('bcrypt/promises');
 
 
 
@@ -41,7 +43,8 @@ courseRouter.post('/purchases',userMiddleware,async(req, res)=> {
     })
 })
 //This Endpoint doesn't even need to be authenticated
-courseRouter.get('/all/preview',async(req, res)=> {
+courseRouter.get('/all/preview',userMiddleware, async (req, res) => {
+    console.log('Hitting from home')
     const courses = await courseModel.find({});
     res.json({
         courses
