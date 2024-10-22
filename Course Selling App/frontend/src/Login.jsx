@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 export function Login() {
+
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,22 +19,24 @@ export function Login() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(requestBody),
+                credentials: 'include'
             })
+            console.log('Response status:', response.status);
 
-            const data = await response.json();
             if (response.ok) {
-                console.log('User Created Successfully:', data);
-                console.log("Testing" + data);
-                // localStorage.setItem('token', data.token);
+                const data = await response.json();
+                console.log('User Signed Successfully:', data);
                 navigate('/home'); // Navigate to the login page upon successful signup
             } else {
+
                 console.log('Error:', data.message);
             }
         } catch (error) {
-
+            console.log('Network Error')
         }
     }
     return <div>
+
         <h2 className="italic text-5xl text-blue-600">Login</h2>
         <form
             onSubmit={handleSubmit}

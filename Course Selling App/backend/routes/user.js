@@ -11,7 +11,7 @@ userRouter.post('/signup', async(req, res) => {
         email: zod.string().email(),
         firstName: zod.string(),
         lastName: zod.string(),
-        password:zod.string()
+        password: zod.string()
     })
     const {success} = signupBody.safeParse(req.body);
    
@@ -39,6 +39,7 @@ userRouter.post('/signup', async(req, res) => {
             lastName: req.body.lastName,
             email: req.body.email,
             password: hashpassword,
+            balance:10000
         })
         const userId = user._id;
         console.log(`user id ${userId}`);
@@ -58,9 +59,9 @@ userRouter.post('/signup', async(req, res) => {
     }
    
 })
-
+//Sign IN
 userRouter.post('/signin', async (req, res) => {
-    console.log('Hitting')
+    
     const signinBody = zod.object({
         email: zod.string().email(),
         password:zod.string()
@@ -94,7 +95,7 @@ userRouter.post('/signin', async (req, res) => {
     }
     const userId = user._id;
     const token = jwt.sign({ userId }, JWT_USER_PASSWORD);
-    console.log(token);
+    // console.log(token);
     const decoded = jwt.verify(token, JWT_USER_PASSWORD);
     console.log('Decoded Value is ' + JSON.stringify(decoded));
     res.cookie('token', token, {
@@ -103,11 +104,11 @@ userRouter.post('/signin', async (req, res) => {
         maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
     });
     res.json({
-        message: "User Created Succesfully",
+        message: "User Signed Succesfully",
     })
 
 })
-
+// This End Point give you all the course that user Purcharsed
 userRouter.get('/purchases',userMiddleware, async(req, res) => {
    
     const userId = req.userId;
