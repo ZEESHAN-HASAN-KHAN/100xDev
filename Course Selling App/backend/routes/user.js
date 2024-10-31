@@ -103,11 +103,23 @@ userRouter.post('/signin', async (req, res) => {
         // secure: process.env.NODE_ENV === 'production', // Ensures cookies are only sent over HTTPS in production
         maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
     });
-    res.json({
+    const userData = await userModel.findById(userId);
+    res.status(200).json({
         message: "User Signed Succesfully",
+        data:userData
+        
     })
 
 })
+userRouter.get('/logout', async (req, res) => {
+    console.log('Logout is coming here');
+    res.clearCookie('token', {
+        httpOnly: true,
+        path: '/', // Use the path you originally set for the cookie
+    });
+    res.status(200).json({ message: 'Logout successful' });
+});
+
 // This End Point give you all the course that user Purcharsed
 userRouter.get('/purchases',userMiddleware, async(req, res) => {
    

@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { fontLora, fontMontserrat } from './Style';
 export function SignUp() {
     const [fname, setFname] = useState('');
     const [lname, setLname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
+    const [toggle, setToggle] = useState('');
     async function handleSubmit(e) {
         e.preventDefault();
         const requestBody = {
@@ -39,14 +39,28 @@ export function SignUp() {
             console.log('Error Submitting the form:', e);
         }
     }
+    async function handleSubmitTeacher(e) {
+        e.preventDefault();
+        alert('hi')
+    }
 
     return (
         <div>
-            <h2 className='italic text-5xl text-blue-600 '>Sign Up</h2>
-            <form
+            <h2 style={fontMontserrat} className='mt-10 text-5xl text-gray-700 '>Sign Up</h2>
+
+            {toggle == 'Student' ? <form
+                style={fontLora}
                 onSubmit={handleSubmit}
-                className="max-w-md mx-auto p-8 bg-white shadow-lg rounded-lg"
+                className=" max-w-md mx-auto p-8 bg-white shadow-lg rounded-lg"
             >
+                <div className='flex flex-row  justify-end gap-4 mb-4'>
+                    <button onClick={() => { setToggle('Student'); }}
+                        className={`${toggle == 'Student' ? 'underline ' : ''}`}
+                    >Student</button>
+                    <button onClick={() => { setToggle('Teacher'); }}
+                        className={`${toggle == 'Teacher' ? 'underline ' : ''}`}
+                    >Teacher</button>
+                </div>
                 <div className="mb-6">
                     <label
                         htmlFor="fname"
@@ -116,13 +130,107 @@ export function SignUp() {
                 </div>
 
                 <button
+
                     type="submit"
-                    className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+                    className="w-full  bg-gray-800 hover:bg-black   text-white py-2 rounded-lg transition duration-300"
                 >
-                    Submit
+                    <span style={fontLora}>Create Account</span>
                 </button>
             </form>
+                :
+                //Teacher
+                <form
+                    style={fontLora}
+                    onSubmit={handleSubmitTeacher}
+                    className=" max-w-md mx-auto p-8 bg-white shadow-lg rounded-lg"
+                >
+                    <div className='flex flex-row  justify-end gap-4 mb-4'>
+                        <button onClick={() => { setToggle('Student'); }}
+                            className={`${toggle == 'Student' ? 'underline ' : ''}`}
+                        >Student</button>
+                        <button onClick={() => { setToggle('Teacher'); }}
+                            className={`${toggle == 'Teacher' ? 'underline ' : ''}`}
+                        >Teacher</button>
+                    </div>
+                    <div className="mb-6">
+                        <label
+                            htmlFor="fname"
+                            className="block text-gray-700 font-medium mb-2"
+                        >
+                            First Name:
+                        </label>
+                        <input
+                            type="text"
+                            id="fname"
+                            value={fname}
+                            onChange={(e) => setFname(e.target.value)}
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    <div className="mb-6">
+                        <label
+                            htmlFor="lname"
+                            className="block text-gray-700 font-medium mb-2"
+                        >
+                            Last Name:
+                        </label>
+                        <input
+                            type="text"
+                            id="lname"
+                            value={lname}
+                            onChange={(e) => setLname(e.target.value)}
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    <div className="mb-6">
+                        <label
+                            htmlFor="email"
+                            className="block text-gray-700 font-medium mb-2"
+                        >
+                            Email:
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    <div className="mb-6">
+                        <label
+                            htmlFor="password"
+                            className="block text-gray-700 font-medium mb-2"
+                        >
+                            Password:
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    <button
+
+                        type="submit"
+                        className="w-full  bg-gray-800 hover:bg-black   text-white py-2 rounded-lg transition duration-300"
+                    >
+                        <span style={fontLora}>Create Account</span>
+                    </button>
+                </form>
+            }
 
         </div>
     );
 }
+

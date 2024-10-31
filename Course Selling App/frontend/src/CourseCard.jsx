@@ -1,9 +1,30 @@
 import { useNavigate } from "react-router-dom"
-
+import { fontLora, fontMontserrat } from "./Style";
 export function CourseCard({ id, title, price, imageUrl, description }) {
     const navigate = useNavigate();
+
     return <>
-        <div
+        <div className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 duration-300">
+            <img
+                src={imageUrl}
+                alt={title}
+                className="w-full h-48 object-cover rounded-t-lg"
+            />
+            <div className="p-6">
+                <h3 style={fontMontserrat} className="text-2xl font-bold mb-2 ">{title}</h3>
+                <p style={fontLora} className=" text-xs text-gray-600 mb-4">{description}</p>
+                <span style={fontMontserrat} className="text-lg font-semibold text-gray-800">Price: ${price}</span>
+                <br />
+                <button onClick={() => {
+                    navigate('/courseDetails/' + id);
+                }}
+                    className="bg-black text-white py-3 px-6 rounded-lg shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
+                    <p style={fontLora} className="text-xl"> View Course</p>
+                </button>
+            </div>
+        </div>
+
+        {/* <div
 
             className="bg-white shadow-md rounded-lg overflow-hidden"
         >
@@ -24,6 +45,6 @@ export function CourseCard({ id, title, price, imageUrl, description }) {
                     View Course</button>
 
             </div>
-        </div>
+        </div> */}
     </>
 }

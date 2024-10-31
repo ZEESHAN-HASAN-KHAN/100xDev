@@ -39,12 +39,12 @@ courseRouter.post('/purchases', userMiddleware, async (req, res) => {
         userId,
         courseId
     });
-    res.json({
+    res.status(200).json({
         message:"You have successfully bought the course"
     })
 })
 //This Endpoint doesn't even need to be authenticated
-courseRouter.get('/all/preview',userMiddleware, async (req, res) => {
+courseRouter.get('/all/preview', async (req, res) => {
     console.log('Hitting from home')
     const courses = await courseModel.find({});
     res.json({

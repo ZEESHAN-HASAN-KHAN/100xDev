@@ -7,14 +7,15 @@ import { Login } from './Login'
 import { Home } from './Home'
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
 import { CourseDetails } from './CourseDetails'
-
+import Navbar from './Navbar'
 // import { Navbar } from './Navbar'
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <BrowserRouter>
 
+    <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path='/signup' element={<SignUp />}></Route>
         <Route path='/login' element={<Login />}></Route>
@@ -22,6 +23,7 @@ function App() {
         <Route path='/courseDetails/:courseId' element={<CourseDetails />}></Route>
       </Routes>
     </BrowserRouter>
+
   )
 }
 

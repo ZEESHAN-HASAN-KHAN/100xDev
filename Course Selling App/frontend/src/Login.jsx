@@ -1,10 +1,18 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
+import { fontLora, fontMontserrat } from "./Style";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { userAtom } from "./store/atom/userAtom";
 export function Login() {
-
+    const user = useRecoilValue(userAtom);
+    const setUser = useSetRecoilState(userAtom);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    useEffect(() => {
+        console.log("Updated User in Recoil:", JSON.stringify(user));
+    }, [user]);
+    // console.log(`User Data ` + JSON.stringify(user));
     async function handleSubmit(e) {
         e.preventDefault();
         const requestBody = {
@@ -26,6 +34,7 @@ export function Login() {
             if (response.ok) {
                 const data = await response.json();
                 console.log('User Signed Successfully:', data);
+                setUser(data.data)
                 navigate('/home'); // Navigate to the login page upon successful signup
             } else {
 
@@ -35,10 +44,11 @@ export function Login() {
             console.log('Network Error')
         }
     }
-    return <div>
+    return <div className="mt-8">
 
-        <h2 className="italic text-5xl text-blue-600">Login</h2>
+        <h2 style={fontMontserrat} className="text-gray-700 text-5xl">Login</h2>
         <form
+            style={fontLora}
             onSubmit={handleSubmit}
             className="max-w-md mx-auto p-8 bg-white shadow-lg rounded-lg"
         >
@@ -76,9 +86,9 @@ export function Login() {
             </div>
             <button
                 type="submit"
-                className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+                className="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-900 transition duration-300"
             >
-                Submit
+                Log In
             </button>
         </form>
 
