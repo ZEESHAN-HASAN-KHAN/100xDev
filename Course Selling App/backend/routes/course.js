@@ -18,7 +18,7 @@ courseRouter.post('/purchases', userMiddleware, async (req, res) => {
     })
     if (ifPurchased)
     {
-        return res.status(403).json({
+        return res.status(400).json({
             error: "You have already purchased the course"
         })
     }
@@ -44,6 +44,7 @@ courseRouter.post('/purchases', userMiddleware, async (req, res) => {
     })
 })
 //This Endpoint doesn't even need to be authenticated
+//This EndPoint will give every Course
 courseRouter.get('/all/preview', async (req, res) => {
     console.log('Hitting from home')
     const courses = await courseModel.find({});

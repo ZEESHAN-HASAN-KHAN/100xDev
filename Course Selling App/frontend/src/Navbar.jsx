@@ -117,7 +117,7 @@ const Navbar = () => {
             <div className="container mx-auto px-6 py-4 flex justify-between items-center">
                 <div className="flex items-center">
                     {/* Logo */}
-                    <Link to="/" className="flex flex-row gap-2 text-2xl font-bold text-gray-800 hover:text-gray-600">
+                    <Link to="/home" className="flex flex-row gap-2 text-2xl font-bold text-gray-800 hover:text-gray-600">
                         <img style={{ borderRadius: 50 }} className='w-8' src={logo} alt="Logo" />
                         EdTech
                     </Link>
@@ -125,7 +125,7 @@ const Navbar = () => {
 
                 {/* Links - hidden on small screens */}
                 <div className="hidden md:flex items-center space-x-8">
-                    <Link to="/" className="text-gray-800 hover:text-gray-900">Home</Link>
+                    <Link to="/home" className="text-gray-800 hover:text-gray-900">Home</Link>
                     <Link to="/courses" className="text-gray-800 hover:text-gray-900">Courses</Link>
                     <Link to="/about" className="text-gray-800 hover:text-gray-900">About</Link>
                     <Link to="/contact" className="text-gray-800 hover:text-gray-900">Contact</Link>
@@ -173,7 +173,7 @@ const Navbar = () => {
             {isOpen && (
                 <div className="md:hidden">
                     <div className="px-6 py-4 space-y-2">
-                        <Link to="/" className="block text-gray-800 hover:text-gray-700" onClick={() => setIsOpen(false)}>
+                        <Link to="/home" className="block text-gray-800 hover:text-gray-700" onClick={() => setIsOpen(false)}>
                             Home
                         </Link>
                         <Link to="/courses" className="block text-gray-800 hover:text-gray-700" onClick={() => setIsOpen(false)}>

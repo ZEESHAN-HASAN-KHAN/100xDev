@@ -13,7 +13,7 @@ export function MyCourse() {
             }
         )
         const data = await response.json();
-        console.log('MyCourse' + JSON.stringify(data));
+
         setCourses(data.courseData);
         setLoading(false)
     }
@@ -29,7 +29,7 @@ export function MyCourse() {
         <div className="grid grid-cols-1 mt-8 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {loading == false ? (
                 courses.map((course) => (
-                    <CourseCard key={course._id} id={course._id} title={course.title} price={course.price} imageUrl={course.imageUrl} description={course.description} />
+                    <CourseCard key={course._id} id={course._id} title={course.title} price={course.price} imageUrl={course.imageUrl} description={course.description} buy={true} />
                 ))
             ) : (
                 <p>Loading courses...</p>
