@@ -4,17 +4,23 @@ export function CourseCard({ id, title, price, imageUrl, description }) {
     const navigate = useNavigate();
 
     return <>
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 duration-300">
+        <div className="bg-gray-50  rounded-sm  ">
             <img
                 src={imageUrl}
                 alt={title}
-                className="w-full h-48 object-cover rounded-t-lg"
+                className="w-full h-48  "
             />
             <div className="p-6">
-                <h3 style={fontMontserrat} className="text-2xl font-bold mb-2 ">{title}</h3>
-                <p style={fontLora} className=" text-xs text-gray-600 mb-4">{description}</p>
-                <span style={fontMontserrat} className="text-lg font-semibold text-gray-800">Price: ${price}</span>
-                <br />
+                <h3 style={fontMontserrat} className="text-md font-semibold mb-1 ">{title}</h3>
+                {/* <p style={fontLora} className=" text-xs text-gray-600 mb-2">{description}</p> */}
+                <div className="flex justify-between items-center m-1">
+                    <div>
+                        <span style={fontMontserrat} className="text-sm font-semibold text-gray-800">Price: ${price}</span>
+                        <span style={fontMontserrat} className="text-gray-500 line-through text-[12px]">${(price + price * 0.25).toFixed(2)}</span>
+                    </div>
+                    <span style={fontMontserrat} className="text-green-500 font-semibold text-sm">25% Off</span>
+                </div>
+
                 <button onClick={() => {
                     navigate('/courseDetails/' + id);
                 }}

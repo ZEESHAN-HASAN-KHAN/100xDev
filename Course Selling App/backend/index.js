@@ -11,7 +11,7 @@ const courseRouter = require('./routes/course');
 const app = express();
 //Adding Middleware
 app.use(cors({
-    origin: 'http://localhost:5173', // or your frontend domain
+    origin: 'http://localhost:5174', // or your frontend domain
     credentials: true,
 }
 

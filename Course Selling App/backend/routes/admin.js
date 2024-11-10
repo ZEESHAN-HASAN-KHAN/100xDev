@@ -46,7 +46,8 @@ adminRouter.post('/signup', async function (req, res) {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            password: hashpassword
+            password: hashpassword,
+            role:"admin"
         });
         const adminId = admin._id;
         const token = jwt.sign({ adminId }, JWT_ADMIN_PASSWORD);
@@ -106,13 +107,15 @@ adminRouter.post('/signin', async function(req, res)  {
     const token = jwt.sign({ adminId }, JWT_ADMIN_PASSWORD);
 
     //sending the cookies
-    res.cookie("admin_token", token, {
-        httpOnly: true
+    res.cookie('token', token, {
+        httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
+        // secure: process.env.NODE_ENV === 'production', // Ensures cookies are only sent over HTTPS in production
+        maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
     });
-
+    const adminData = await adminModel.findById(adminId);
     return res.status(200).json({
         message: "Authenticated Successfully",
-        token:token
+        data:adminData
     })
 
 })
@@ -120,14 +123,15 @@ adminRouter.post('/signin', async function(req, res)  {
 adminRouter.post("/course", adminMiddleware, async function(req, res) {
     const adminId = req.adminId;
 
-    const { title, description, imageUrl, price } = req.body;
+    const { title, description, imageUrl, price,keyFeatures } = req.body;
 
     // creating a web3 saas in 6 hours
     const course = await courseModel.create({
         title: title, 
         description: description, 
         imageUrl: imageUrl, 
-        price: price, 
+        price: price,
+        keyFeatures:keyFeatures,
         creatorId: adminId
     })
 
@@ -180,7 +184,7 @@ adminRouter.get('/course/bulk', adminMiddleware,async function (req, res)
 
         return res.status(200).json({
             message:"All Courses",
-            courses:courses
+            courseData:courses
         })
     } catch (e)
     {

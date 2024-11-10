@@ -24,14 +24,16 @@ const userSchema = new mongoose.Schema({
     balance: {
         type: Number,
         require:true
-    }
+    },
+    role:String
 })
 
 const adminSchema = new mongoose.Schema({
     firstName: String,
     lastName:String,
     email: {type:String,unique:true},
-    password:String 
+    password: String,
+    role:String
 })
 
 const courseSchema = new mongoose.Schema({

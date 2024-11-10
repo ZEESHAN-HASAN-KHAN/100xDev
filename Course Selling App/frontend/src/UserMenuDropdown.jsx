@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import avatar from './assets/avatar.svg'
+import avatar from './assets/avatar.png'
 import { fontMontserrat } from './Style';
 import { useSetRecoilState } from 'recoil';
 import { userAtom } from './store/atom/userAtom';
@@ -21,23 +21,23 @@ function UserMenuDropdown({ name }) {
         navigate('/login')
     }
     return (
-        <div className="relative inline-block">
+        <div className="relative inline-block ">
             <button onClick={toggleDropdown} className="flex items-center focus:outline-none">
-                <img style={{ borderRadius: '50%' }} className="w-8" src={avatar} alt="User" />
+                <img style={{ borderRadius: '50%' }} className="w-8 text-white" src={avatar} alt="User" />
             </button>
             {userMenu && (
-                <ul style={fontMontserrat} className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                    <li className="px-4 py-2 text-gray-800">
+                <ul style={fontMontserrat} className="absolute right-0 mt-2 w-48 bg-black text-white border border-gray-700 rounded-md shadow-lg z-10">
+                    <li className="px-4 py-2 hover:bg-gray-900">
                         Hi, {name}
                     </li>
                     <li>
-                        <Link to="/myProfile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile</Link>
+                        <Link to="/myProfile" className="block px-4 py-2 hover:bg-gray-900 ">Profile</Link>
                     </li>
                     <li>
-                        <Link to="/myCourses" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">My Courses</Link>
+                        <Link to="/myCourses" className="block px-4 py-2  hover:bg-gray-900">My Courses</Link>
                     </li>
                     <li>
-                        <span onClick={logout} className="block px-4 py-2 text-red-500 hover:bg-gray-100">
+                        <span onClick={logout} className="block px-4 py-2 text-red-500 hover:bg-gray-900">
                             Log Out
                         </span>
                     </li>

@@ -39,7 +39,8 @@ userRouter.post('/signup', async(req, res) => {
             lastName: req.body.lastName,
             email: req.body.email,
             password: hashpassword,
-            balance:10000
+            balance: 10000,
+            role:"user"
         })
         const userId = user._id;
         console.log(`user id ${userId}`);

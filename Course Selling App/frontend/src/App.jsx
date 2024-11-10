@@ -10,6 +10,10 @@ import { CourseDetails } from './CourseDetails'
 import Navbar from './Navbar'
 import { MyCourse } from './MyCourse'
 import { Profile } from './Profile'
+import { Courses } from './Courses'
+import { AddCourse } from './AddCourse'
+import { About } from './About'
+import { Contact } from './Contact'
 // import { Navbar } from './Navbar'
 function App() {
   const [count, setCount] = useState(0)
@@ -24,6 +28,10 @@ function App() {
         <Route path='/login' element={<Login />}></Route>
         <Route path='/myProfile' element={<Profile />}></Route>
         <Route path='/myCourses' element={<MyCourse />}></Route>
+        <Route path='/courses' element={<Courses />}></Route>
+        <Route path='/addCourse' element={<AddCourse />}></Route>
+        <Route path='/about' element={<About />}></Route>
+        <Route path='/contact' element={<Contact />}></Route>
         <Route path='/courseDetails/:courseId' element={<CourseDetails />}></Route>
       </Routes>
     </BrowserRouter>

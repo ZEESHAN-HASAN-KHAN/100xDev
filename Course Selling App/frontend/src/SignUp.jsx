@@ -41,12 +41,39 @@ export function SignUp() {
     }
     async function handleSubmitTeacher(e) {
         e.preventDefault();
-        alert('hi')
+        const requestBody = {
+            firstName: fname,
+            lastName: lname,
+            email: email,
+            password: password,
+        };
+
+        try {
+            const response = await fetch('http://localhost:3000/api/v1/admin/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+                credentials: 'include'
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                console.log('User Created Successfully:', data);
+                localStorage.setItem('token', data.token);
+                navigate('/login'); // Navigate to the login page upon successful signup
+            } else {
+                console.log('Error:', data.message);
+            }
+        } catch (e) {
+            console.log('Error Submitting the form:', e);
+        }
     }
 
     return (
-        <div>
-            <h2 style={fontMontserrat} className='mt-10 text-5xl text-gray-700 '>Sign Up</h2>
+        <div className='bg-black'>
+            <h2 style={fontMontserrat} className='pt-10 pb-2 text-5xl text-white '>Sign Up</h2>
 
             {toggle == 'Student' ? <form
                 style={fontLora}
