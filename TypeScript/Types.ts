@@ -29,9 +29,15 @@ type Manager = {
     name: string;
     department: string
 }
+//We can create a new type that has all properties of both types
+//Union of both types
 type TeamLead = Employee & Manager;
 const teamLead: TeamLead = {
     name: "Zeeshan",
     startDate: new Date(),
     department: 'Software Developer'
+}
+
+function add(a: string | number, b: string | number) {
+    console.log(a + b);
 }

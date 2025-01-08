@@ -1,27 +1,26 @@
-var user = {
-    firstName: "Harkirat",
-    lastName: "singh",
-    email: "email@gmail.com",
-    age: 21
-};
-function isLegal(user) {
-    if (user.age > 18) {
-        console.log('Age is Legal');
-    }
-    else {
-        console.log('Age is not legal');
-    }
+// interface User {
+//     firstName: string;
+//     lastName: string;
+//     email: string;
+//     age: number;
+// }
+// const user = {
+//     firstName: "Harkirat",
+//     lastName: "singh",
+//     email: "email@gmail.com",
+//     age: 21
+// }
+// function isLegal(user: User) {
+//     if (user.age > 18) {
+//         console.log('Age is Legal');
+//     }
+//     else {
+//         console.log('Age is not legal');
+//     }
+// }
+// isLegal(user);
+// //Implemeneting Interfaces as a class
+function greet(user) {
+    console.log("Hello ".concat(user.name, " your age is ").concat(user.age, " and you live in ").concat(user.address.streetName, " ").concat(user.address.country));
 }
-isLegal(user);
-var Employee = /** @class */ (function () {
-    function Employee(n, a) {
-        this.name = n;
-        this.age = a;
-    }
-    Employee.prototype.greet = function (phrase) {
-        console.log("".concat(phrase, " ").concat(this.name, " your age is ").concat(this.age));
-    };
-    return Employee;
-}());
-var obj = new Employee('zeeshan', 1);
-obj.greet('Welcome');
+greet({ firstName: 'Harkirat', lastName: 'Singh', name: 'Harkirat', age: 21, address: { streetName: '123', country: 'India' } });
